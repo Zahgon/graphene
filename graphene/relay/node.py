@@ -11,13 +11,7 @@ def is_node(objecttype):
     """
     Check if the given objecttype has Node as an interface
     """
-    if not isclass(objecttype):
-        return False
-
-    if not issubclass(objecttype, ObjectType):
-        return False
-
-    return any(issubclass(i, Node) for i in objecttype._meta.interfaces)
+    pass
 
 
 class GlobalID(Field):
@@ -38,17 +32,10 @@ class GlobalID(Field):
 
     @staticmethod
     def id_resolver(parent_resolver, node, root, info, parent_type_name=None, **args):
-        type_id = parent_resolver(root, info, **args)
-        parent_type_name = parent_type_name or info.parent_type.name
-        return node.to_global_id(parent_type_name, type_id)  # root._meta.name
+        pass
 
     def wrap_resolve(self, parent_resolver):
-        return partial(
-            self.id_resolver,
-            parent_resolver,
-            self.node,
-            parent_type_name=self.parent_type_name,
-        )
+        pass
 
 
 class NodeField(Field):
@@ -68,7 +55,7 @@ class NodeField(Field):
         )
 
     def wrap_resolve(self, parent_resolver):
-        return partial(self.node_type.node_resolver, get_type(self.field_type))
+        pass
 
 
 class AbstractNode(Interface):
@@ -91,7 +78,7 @@ class AbstractNode(Interface):
 
     @classmethod
     def resolve_global_id(cls, info, global_id):
-        return cls._meta.global_id_type.resolve_global_id(info, global_id)
+        pass
 
 
 class Node(AbstractNode):
@@ -103,33 +90,12 @@ class Node(AbstractNode):
 
     @classmethod
     def node_resolver(cls, only_type, root, info, id):
-        return cls.get_node_from_global_id(info, id, only_type=only_type)
+        pass
 
     @classmethod
     def get_node_from_global_id(cls, info, global_id, only_type=None):
-        _type, _id = cls.resolve_global_id(info, global_id)
-
-        graphene_type = info.schema.get_type(_type)
-        if graphene_type is None:
-            raise Exception(f'Relay Node "{_type}" not found in schema')
-
-        graphene_type = graphene_type.graphene_type
-
-        if only_type:
-            assert (
-                graphene_type == only_type
-            ), f"Must receive a {only_type._meta.name} id."
-
-        # We make sure the ObjectType implements the "Node" interface
-        if cls not in graphene_type._meta.interfaces:
-            raise Exception(
-                f'ObjectType "{_type}" does not implement the "{cls}" interface.'
-            )
-
-        get_node = getattr(graphene_type, "get_node", None)
-        if get_node:
-            return get_node(info, _id)
+        pass
 
     @classmethod
     def to_global_id(cls, type_, id):
-        return cls._meta.global_id_type.to_global_id(type_, id)
+        pass

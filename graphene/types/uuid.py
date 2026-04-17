@@ -15,23 +15,12 @@ class UUID(Scalar):
 
     @staticmethod
     def serialize(uuid):
-        if isinstance(uuid, str):
-            uuid = _UUID(uuid)
-
-        assert isinstance(uuid, _UUID), f"Expected UUID instance, received {uuid}"
-        return str(uuid)
+        pass
 
     @staticmethod
     def parse_literal(node, _variables=None):
-        if isinstance(node, StringValueNode):
-            return _UUID(node.value)
-        return Undefined
+        pass
 
     @staticmethod
     def parse_value(value):
-        if isinstance(value, _UUID):
-            return value
-        try:
-            return _UUID(value)
-        except (ValueError, AttributeError):
-            raise GraphQLError(f"UUID cannot represent value: {repr(value)}")
+        pass

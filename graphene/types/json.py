@@ -16,17 +16,12 @@ class JSONString(Scalar):
 
     @staticmethod
     def serialize(dt):
-        return json.dumps(dt)
+        pass
 
     @staticmethod
     def parse_literal(node, _variables=None):
-        if isinstance(node, StringValueNode):
-            try:
-                return json.loads(node.value)
-            except Exception as error:
-                raise ValueError(f"Badly formed JSONString: {str(error)}")
-        return Undefined
+        pass
 
     @staticmethod
     def parse_value(value):
-        return json.loads(value)
+        pass

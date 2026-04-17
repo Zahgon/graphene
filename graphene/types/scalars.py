@@ -40,7 +40,7 @@ class Scalar(UnmountedType, BaseType):
         This function is called when the unmounted type (Scalar instance)
         is mounted (as a Field, InputField or Argument)
         """
-        return cls
+        pass
 
 
 # As per the GraphQL Spec, Integers are only treated as valid when a valid
@@ -62,27 +62,14 @@ class Int(Scalar):
 
     @staticmethod
     def coerce_int(value):
-        try:
-            num = int(value)
-        except ValueError:
-            try:
-                num = int(float(value))
-            except ValueError:
-                return Undefined
-        if MIN_INT <= num <= MAX_INT:
-            return num
-        return Undefined
+        pass
 
     serialize = coerce_int
     parse_value = coerce_int
 
     @staticmethod
     def parse_literal(ast, _variables=None):
-        if isinstance(ast, IntValueNode):
-            num = int(ast.value)
-            if MIN_INT <= num <= MAX_INT:
-                return num
-        return Undefined
+        pass
 
 
 class BigInt(Scalar):
@@ -94,23 +81,14 @@ class BigInt(Scalar):
 
     @staticmethod
     def coerce_int(value):
-        try:
-            num = int(value)
-        except ValueError:
-            try:
-                num = int(float(value))
-            except ValueError:
-                return Undefined
-        return num
+        pass
 
     serialize = coerce_int
     parse_value = coerce_int
 
     @staticmethod
     def parse_literal(ast, _variables=None):
-        if isinstance(ast, IntValueNode):
-            return int(ast.value)
-        return Undefined
+        pass
 
 
 class Float(Scalar):
@@ -122,19 +100,14 @@ class Float(Scalar):
 
     @staticmethod
     def coerce_float(value: Any) -> float:
-        try:
-            return float(value)
-        except ValueError:
-            return Undefined
+        pass
 
     serialize = coerce_float
     parse_value = coerce_float
 
     @staticmethod
     def parse_literal(ast, _variables=None):
-        if isinstance(ast, (FloatValueNode, IntValueNode)):
-            return float(ast.value)
-        return Undefined
+        pass
 
 
 class String(Scalar):
@@ -146,18 +119,14 @@ class String(Scalar):
 
     @staticmethod
     def coerce_string(value):
-        if isinstance(value, bool):
-            return "true" if value else "false"
-        return str(value)
+        pass
 
     serialize = coerce_string
     parse_value = coerce_string
 
     @staticmethod
     def parse_literal(ast, _variables=None):
-        if isinstance(ast, StringValueNode):
-            return ast.value
-        return Undefined
+        pass
 
 
 class Boolean(Scalar):
@@ -170,9 +139,7 @@ class Boolean(Scalar):
 
     @staticmethod
     def parse_literal(ast, _variables=None):
-        if isinstance(ast, BooleanValueNode):
-            return ast.value
-        return Undefined
+        pass
 
 
 class ID(Scalar):
@@ -189,6 +156,4 @@ class ID(Scalar):
 
     @staticmethod
     def parse_literal(ast, _variables=None):
-        if isinstance(ast, (StringValueNode, IntValueNode)):
-            return ast.value
-        return Undefined
+        pass

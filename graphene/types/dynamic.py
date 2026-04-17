@@ -17,6 +17,4 @@ class Dynamic(MountedType):
         self.with_schema = with_schema
 
     def get_type(self, schema=None):
-        if schema and self.with_schema:
-            return self.type(schema=schema)
-        return self.type()
+        pass

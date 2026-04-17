@@ -10,12 +10,10 @@ class OrderedType:
 
     @staticmethod
     def gen_counter():
-        counter = OrderedType.creation_counter
-        OrderedType.creation_counter += 1
-        return counter
+        pass
 
     def reset_counter(self):
-        self.creation_counter = self.gen_counter()
+        pass
 
     def __eq__(self, other):
         # Needed for @total_ordering

@@ -16,12 +16,12 @@ class BaseGlobalIDType:
     @classmethod
     def resolve_global_id(cls, info, global_id):
         # return _type, _id
-        raise NotImplementedError
+        pass
 
     @classmethod
     def to_global_id(cls, _type, _id):
         # return _id
-        raise NotImplementedError
+        pass
 
 
 class DefaultGlobalIDType(BaseGlobalIDType):
@@ -33,21 +33,11 @@ class DefaultGlobalIDType(BaseGlobalIDType):
 
     @classmethod
     def resolve_global_id(cls, info, global_id):
-        try:
-            _type, _id = from_global_id(global_id)
-            if not _type:
-                raise ValueError("Invalid Global ID")
-            return _type, _id
-        except Exception as e:
-            raise Exception(
-                f'Unable to parse global ID "{global_id}". '
-                'Make sure it is a base64 encoded string in the format: "TypeName:id". '
-                f"Exception message: {e}"
-            )
+        pass
 
     @classmethod
     def to_global_id(cls, _type, _id):
-        return to_global_id(_type, _id)
+        pass
 
 
 class SimpleGlobalIDType(BaseGlobalIDType):
@@ -61,12 +51,11 @@ class SimpleGlobalIDType(BaseGlobalIDType):
 
     @classmethod
     def resolve_global_id(cls, info, global_id):
-        _type = info.return_type.graphene_type._meta.name
-        return _type, global_id
+        pass
 
     @classmethod
     def to_global_id(cls, _type, _id):
-        return _id
+        pass
 
 
 class UUIDGlobalIDType(BaseGlobalIDType):
@@ -79,9 +68,8 @@ class UUIDGlobalIDType(BaseGlobalIDType):
 
     @classmethod
     def resolve_global_id(cls, info, global_id):
-        _type = info.return_type.graphene_type._meta.name
-        return _type, global_id
+        pass
 
     @classmethod
     def to_global_id(cls, _type, _id):
-        return _id
+        pass

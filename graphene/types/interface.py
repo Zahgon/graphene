@@ -67,10 +67,7 @@ class Interface(BaseType):
 
     @classmethod
     def resolve_type(cls, instance, info):
-        from .objecttype import ObjectType
-
-        if isinstance(instance, ObjectType):
-            return type(instance)
+        pass
 
     def __init__(self, *args, **kwargs):
         raise Exception("An Interface cannot be initialized")

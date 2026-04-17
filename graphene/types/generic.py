@@ -21,27 +21,11 @@ class GenericScalar(Scalar):
 
     @staticmethod
     def identity(value):
-        return value
+        pass
 
     serialize = identity
     parse_value = identity
 
     @staticmethod
     def parse_literal(ast, _variables=None):
-        if isinstance(ast, (StringValueNode, BooleanValueNode)):
-            return ast.value
-        elif isinstance(ast, IntValueNode):
-            num = int(ast.value)
-            if MIN_INT <= num <= MAX_INT:
-                return num
-        elif isinstance(ast, FloatValueNode):
-            return float(ast.value)
-        elif isinstance(ast, ListValueNode):
-            return [GenericScalar.parse_literal(value) for value in ast.values]
-        elif isinstance(ast, ObjectValueNode):
-            return {
-                field.name.value: GenericScalar.parse_literal(field.value)
-                for field in ast.fields
-            }
-        else:
-            return None
+        pass

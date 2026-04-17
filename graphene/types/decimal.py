@@ -13,22 +13,12 @@ class Decimal(Scalar):
 
     @staticmethod
     def serialize(dec):
-        if isinstance(dec, str):
-            dec = _Decimal(dec)
-        assert isinstance(
-            dec, _Decimal
-        ), f'Received not compatible Decimal "{repr(dec)}"'
-        return str(dec)
+        pass
 
     @classmethod
     def parse_literal(cls, node, _variables=None):
-        if isinstance(node, (StringValueNode, IntValueNode)):
-            return cls.parse_value(node.value)
-        return Undefined
+        pass
 
     @staticmethod
     def parse_value(value):
-        try:
-            return _Decimal(value)
-        except Exception:
-            return Undefined
+        pass

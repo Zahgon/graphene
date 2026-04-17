@@ -14,7 +14,7 @@ class BaseOptions:
         self.class_type: Type = class_type
 
     def freeze(self):
-        self._frozen = True
+        pass
 
     def __setattr__(self, name, value):
         if not self._frozen:
@@ -32,7 +32,7 @@ BaseTypeMeta = SubclassWithMeta_Meta
 class BaseType(SubclassWithMeta):
     @classmethod
     def create_type(cls, class_name, **options):
-        return type(class_name, (cls,), {"Meta": options})
+        pass
 
     @classmethod
     def __init_subclass_with_meta__(

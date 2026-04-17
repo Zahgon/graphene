@@ -18,25 +18,7 @@ def get_edge_class(
     base_name: str,
     strict_types: bool = False,
 ):
-    edge_class = getattr(connection_class, "Edge", None)
-
-    class EdgeBase:
-        node = Field(
-            NonNull(_node) if strict_types else _node,
-            description="The item at the end of the edge",
-        )
-        cursor = String(required=True, description="A cursor for use in pagination")
-
-    class EdgeMeta:
-        description = f"A Relay edge containing a `{base_name}` and its cursor."
-
-    edge_name = f"{base_name}Edge"
-
-    edge_bases = [edge_class, EdgeBase] if edge_class else [EdgeBase]
-    if not isinstance(edge_class, ObjectType):
-        edge_bases = [*edge_bases, ObjectType]
-
-    return type(edge_name, tuple(edge_bases), {"Meta": EdgeMeta})
+    pass
 
 
 class PageInfo(ObjectType):
@@ -72,12 +54,7 @@ class PageInfo(ObjectType):
 # noinspection PyPep8Naming
 def page_info_adapter(startCursor, endCursor, hasPreviousPage, hasNextPage):
     """Adapter for creating PageInfo instances"""
-    return PageInfo(
-        start_cursor=startCursor,
-        end_cursor=endCursor,
-        has_previous_page=hasPreviousPage,
-        has_next_page=hasNextPage,
-    )
+    pass
 
 
 class ConnectionOptions(ObjectTypeOptions):
@@ -134,7 +111,7 @@ class Connection(ObjectType):
 # noinspection PyPep8Naming
 def connection_adapter(cls, edges, pageInfo):
     """Adapter for creating Connection instances"""
-    return cls(edges=edges, page_info=pageInfo)
+    pass
 
 
 class IterableConnectionField(Field):
@@ -147,54 +124,18 @@ class IterableConnectionField(Field):
 
     @property
     def type(self):
-        type_ = super(IterableConnectionField, self).type
-        connection_type = type_
-        if isinstance(type_, NonNull):
-            connection_type = type_.of_type
-
-        if is_node(connection_type):
-            raise Exception(
-                "ConnectionFields now need a explicit ConnectionType for Nodes.\n"
-                "Read more: https://github.com/graphql-python/graphene/blob/v2.0.0/UPGRADE-v2.0.md#node-connections"
-            )
-
-        assert issubclass(
-            connection_type, Connection
-        ), f'{self.__class__.__name__} type has to be a subclass of Connection. Received "{connection_type}".'
-        return type_
+        pass
 
     @classmethod
     def resolve_connection(cls, connection_type, args, resolved):
-        if isinstance(resolved, connection_type):
-            return resolved
-
-        assert isinstance(resolved, Iterable), (
-            f"Resolved value from the connection field has to be an iterable or instance of {connection_type}. "
-            f'Received "{resolved}"'
-        )
-        connection = connection_from_array(
-            resolved,
-            args,
-            connection_type=partial(connection_adapter, connection_type),
-            edge_type=connection_type.Edge,
-            page_info_type=page_info_adapter,
-        )
-        connection.iterable = resolved
-        return connection
+        pass
 
     @classmethod
     def connection_resolver(cls, resolver, connection_type, root, info, **args):
-        resolved = resolver(root, info, **args)
-
-        if isinstance(connection_type, NonNull):
-            connection_type = connection_type.of_type
-
-        on_resolve = partial(cls.resolve_connection, connection_type, args)
-        return maybe_thenable(resolved, on_resolve)
+        pass
 
     def wrap_resolve(self, parent_resolver):
-        resolver = super(IterableConnectionField, self).wrap_resolve(parent_resolver)
-        return partial(self.connection_resolver, resolver, self.type)
+        pass
 
 
 ConnectionField = IterableConnectionField

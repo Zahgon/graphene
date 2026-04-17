@@ -21,14 +21,14 @@ class Structure(UnmountedType):
 
     @property
     def of_type(self):
-        return get_type(self._of_type)
+        pass
 
     def get_type(self):
         """
         This function is called when the unmounted type (List or NonNull instance)
         is mounted (as a Field, InputField or Argument)
         """
-        return self
+        pass
 
 
 class List(Structure):

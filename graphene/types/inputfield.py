@@ -71,4 +71,4 @@ class InputField(MountedType):
 
     @property
     def type(self):
-        return get_type(self._type)
+        pass

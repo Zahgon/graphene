@@ -14,30 +14,12 @@ class Base64(Scalar):
 
     @staticmethod
     def serialize(value):
-        if not isinstance(value, bytes):
-            if isinstance(value, str):
-                value = value.encode("utf-8")
-            else:
-                value = str(value).encode("utf-8")
-        return b64encode(value).decode("utf-8")
+        pass
 
     @classmethod
     def parse_literal(cls, node, _variables=None):
-        if not isinstance(node, StringValueNode):
-            raise GraphQLError(
-                f"Base64 cannot represent non-string value: {print_ast(node)}"
-            )
-        return cls.parse_value(node.value)
+        pass
 
     @staticmethod
     def parse_value(value):
-        if not isinstance(value, bytes):
-            if not isinstance(value, str):
-                raise GraphQLError(
-                    f"Base64 cannot represent non-string value: {repr(value)}"
-                )
-            value = value.encode("utf-8")
-        try:
-            return b64decode(value, validate=True).decode("utf-8")
-        except _Error:
-            raise GraphQLError(f"Base64 cannot decode value: {repr(value)}")
+        pass

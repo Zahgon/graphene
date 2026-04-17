@@ -14,10 +14,7 @@ base_type = type
 
 
 def source_resolver(source, root, info, **args):
-    resolved = default_resolver(source, None, root, info, **args)
-    if inspect.isfunction(resolved) or inspect.ismethod(resolved):
-        return resolved()
-    return resolved
+    pass
 
 
 class Field(MountedType):
@@ -114,7 +111,7 @@ class Field(MountedType):
 
     @property
     def type(self):
-        return get_type(self._type)
+        pass
 
     get_resolver = None
 
@@ -123,17 +120,11 @@ class Field(MountedType):
         Wraps a function resolver, using the ObjectType resolve_{FIELD_NAME}
         (parent_resolver) if the Field definition has no resolver.
         """
-        if self.get_resolver is not None:
-            warn_deprecation(
-                "The get_resolver method is being deprecated, please rename it to wrap_resolve."
-            )
-            return self.get_resolver(parent_resolver)
-
-        return self.resolver or parent_resolver
+        pass
 
     def wrap_subscribe(self, parent_subscribe):
         """
         Wraps a function subscribe, using the ObjectType subscribe_{FIELD_NAME}
         (parent_subscribe) if the Field definition has no subscribe.
         """
-        return parent_subscribe
+        pass

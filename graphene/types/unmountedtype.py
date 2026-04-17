@@ -49,10 +49,10 @@ class UnmountedType(OrderedType):
         This function is called when the UnmountedType instance
         is mounted (as a Field, InputField or Argument)
         """
-        raise NotImplementedError(f"get_type not implemented in {self}")
+        pass
 
     def mount_as(self, _as):
-        return _as.mounted(self)
+        pass
 
     def Field(self):  # noqa: N802
         """
@@ -66,9 +66,7 @@ class UnmountedType(OrderedType):
         """
         Mount the UnmountedType as InputField
         """
-        from .inputfield import InputField
-
-        return self.mount_as(InputField)
+        pass
 
     def Argument(self):  # noqa: N802
         """

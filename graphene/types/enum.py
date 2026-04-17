@@ -7,13 +7,11 @@ from .unmountedtype import UnmountedType
 
 
 def eq_enum(self, other):
-    if isinstance(other, self.__class__):
-        return self is other
-    return self.value is other
+    pass
 
 
 def hash_enum(self):
-    return hash(self.name)
+    pass
 
 
 EnumType = type(PyEnum)
@@ -38,7 +36,7 @@ class EnumMeta(SubclassWithMeta_Meta):
         return obj
 
     def get(cls, value):
-        return cls._meta.enum(value)
+        pass
 
     def __getitem__(cls, value):
         return cls._meta.enum[value]
@@ -62,15 +60,7 @@ class EnumMeta(SubclassWithMeta_Meta):
         return cls._meta.enum.__iter__()
 
     def from_enum(cls, enum, name=None, description=None, deprecation_reason=None):  # noqa: N805
-        name = name or enum.__name__
-        description = description or enum.__doc__ or "An enumeration."
-        meta_dict = {
-            "enum": enum,
-            "description": description,
-            "deprecation_reason": deprecation_reason,
-        }
-        meta_class = type("Meta", (object,), meta_dict)
-        return type(name, (Enum,), {"Meta": meta_class})
+        pass
 
 
 class Enum(UnmountedType, BaseType, metaclass=EnumMeta):
@@ -115,4 +105,4 @@ class Enum(UnmountedType, BaseType, metaclass=EnumMeta):
         This function is called when the unmounted type (Enum instance)
         is mounted (as a Field, InputField or Argument)
         """
-        return cls
+        pass
