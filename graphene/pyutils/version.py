@@ -27,14 +27,22 @@ def get_version(version=None):
 
 def get_main_version(version=None):
     "Returns main version (X.Y[.Z]) from VERSION."
-    pass
+    version = get_complete_version(version)
+    parts = 2 if version[2] == 0 else 3
+    return ".".join(str(x) for x in version[:parts])
 
 
 def get_complete_version(version=None):
     """Returns a tuple of the graphene version. If version argument is non-empty,
     then checks for correctness of the tuple provided.
     """
-    pass
+    if version is None:
+        from graphene import VERSION as version
+    else:
+        assert len(version) == 5
+        assert version[3] in ("alpha", "beta", "rc", "final")
+
+    return version
 
 
 def get_docs_version(version=None):
